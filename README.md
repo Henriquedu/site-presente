@@ -23,14 +23,6 @@ A proposta do projeto é ir além de um simples presente material, oferecendo um
 - CSS
 - JavaScript
 
-## Screenshots
-
-<p align="center">
-  <img src="https://henriquedu.github.io/site-presente/thumbnail.png" alt="Screenshot principal" width="500"/>
-</p>
-
-> Obs: Caso a imagem não apareça, basta acessar diretamente o site.
-
 ## Licença
 
 Este projeto tem caráter pessoal e não possui finalidade comercial.
