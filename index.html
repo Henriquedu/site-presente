@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Mi Gatitaa ❤️ | Desde 17/12/2023</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Para Mi Gatitaa ❤️</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Particle.js para efeitos -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        /* Estilos inline para garantir funcionamento */
+        /* ============================================
+           ESTILOS DA INTRODUÇÃO
+        ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -23,15 +23,311 @@
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
         
+        /* Container principal do site (começa escondido) */
+        #mainSite {
+            display: none;
+        }
+        
+        /* Overlay de introdução */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Tela inicial - Começar */
+        .start-screen {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .welcome-hearts {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .start-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .start-subtitle {
+            font-size: 1.3rem;
+            color: #a5a5a5;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        /* Botões */
+        .start-btn, .open-gift-btn {
+            background: linear-gradient(45deg, #9d4edd, #c084fc);
+            border: none;
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+        }
+        
+        .start-btn:hover, .open-gift-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(157, 78, 221, 0.4);
+        }
+        
+        /* Slides automáticos */
+        .slides-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .intro-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .intro-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-hearts {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        .slide-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-subtitle {
+            font-size: 1.5rem;
+            color: #a5a5a5;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+        
+        /* Contador de slides */
+        .slide-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .counter-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .counter-dot.active {
+            background: #9d4edd;
+            transform: scale(1.3);
+        }
+        
+        /* Tela final - Abrir presente */
+        .final-screen {
+            display: none;
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .gift-icon {
+            font-size: 5rem;
+            color: #c084fc;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .final-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .final-name {
+            color: #c084fc;
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #9d4edd, #c084fc);
+            width: 0%;
+            border-radius: 2px;
+            transition: width 2s ease;
+        }
+        
+        /* Responsividade da introdução */
+        @media (max-width: 768px) {
+            .start-title, .slide-title {
+                font-size: 2.5rem;
+            }
+            
+            .final-title {
+                font-size: 2.2rem;
+            }
+            
+            .slide-subtitle, .start-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .start-btn, .open-gift-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .welcome-hearts, .slide-hearts {
+                font-size: 3rem;
+            }
+            
+            .gift-icon {
+                font-size: 4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .start-title, .slide-title {
+                font-size: 2rem;
+            }
+            
+            .final-title {
+                font-size: 1.8rem;
+            }
+            
+            .slide-subtitle, .start-subtitle {
+                font-size: 1rem;
+            }
+            
+            .start-screen, .final-screen {
+                padding: 20px;
+            }
+            
+            .loading-bar {
+                width: 250px;
+            }
+        }
+        
+        /* ============================================
+           ESTILOS DO SITE PRINCIPAL
+        ============================================ */
         /* Partículas de fundo */
         #particles-js {
             position: fixed;
             width: 100%;
             height: 100%;
             z-index: -1;
+        }
+        
+        /* Chuva de corações */
+        .hearts-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .heart-rain {
+            position: absolute;
+            font-size: 20px;
+            color: #9d4edd;
+            opacity: 0.55;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(157, 78, 221, 0.3);
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
         }
         
         .container {
@@ -228,11 +524,6 @@
             margin-bottom: 20px;
             display: inline-block;
             animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
         
         .counter-title h2 {
@@ -453,6 +744,30 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(157, 78, 221, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-slider:hover {
+            transform: scale(1.005);
+        }
+        
+        .gallery-slider.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2000;
+            border-radius: 0;
+            border: none;
+            cursor: default;
+        }
+        
+        .gallery-slider.fullscreen .slide-caption {
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 30px;
+            font-size: 1.5rem;
         }
         
         .slide {
@@ -488,6 +803,42 @@
             font-size: 1.3rem;
             font-weight: 500;
             letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        
+        /* Botão tela cheia */
+        .fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            color: #c084fc;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+        
+        .fullscreen-btn:hover {
+            background: rgba(157, 78, 221, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .gallery-slider.fullscreen .fullscreen-btn {
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
         }
         
         .slider-controls {
@@ -674,7 +1025,23 @@
             font-size: 0.9rem;
         }
         
-        /* Responsividade */
+        /* Overlay para tela cheia */
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1999;
+            display: none;
+        }
+        
+        .fullscreen-overlay.active {
+            display: block;
+        }
+        
+        /* Responsividade do site principal */
         @media (max-width: 1100px) {
             .counter-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -735,9 +1102,24 @@
                 height: 400px;
             }
             
+            .gallery-slider.fullscreen {
+                height: 100vh;
+            }
+            
             .slide-caption {
                 padding: 15px;
                 font-size: 1.1rem;
+            }
+            
+            .gallery-slider.fullscreen .slide-caption {
+                padding: 20px;
+                font-size: 1.3rem;
+            }
+            
+            .fullscreen-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
             
             .message-content {
@@ -792,283 +1174,508 @@
             .section-title {
                 font-size: 1.8rem;
             }
+            
+            .gallery-slider.fullscreen .fullscreen-btn {
+                width: 50px;
+                height: 50px;
+                top: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Partículas de fundo -->
-    <div id="particles-js"></div>
-    
-    <!-- Container Principal -->
-    <div class="container">
-        
-        <!-- Cabeçalho - Estilo MemoryIIT -->
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-heart"></i>
-                <span>Te Amu</span>
+    <!-- ============================================
+         INTRODUÇÃO
+    ============================================ -->
+    <div class="intro-overlay" id="introOverlay">
+        <!-- TELA 1: COMEÇAR -->
+        <div class="start-screen" id="startScreen">
+            <div class="welcome-hearts">
+                ❤️💜💖
             </div>
-            <nav class="nav">
-                <a href="#home" class="nav-link active">Início</a>
-                <a href="#gallery" class="nav-link">Fotos</a>
-                <a href="#music" class="nav-link">Música</a>
-                <a href="#message" class="nav-link">Mensagem</a>
-            </nav>
-        </header>
+            <h1 class="start-title">Um Presente Especial</h1>
+            <p class="start-subtitle">
+                Alguém que te ama preparou algo único com todo carinho do coração
+            </p>
+            <button class="start-btn" id="startBtn">
+                <i class="fas fa-play"></i>
+                Começar
+            </button>
+        </div>
         
-        <!-- Seção 1: Contador Aprimorado -->
-        <section id="home" class="section hero">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Para <span class="highlight">Você Mi Gatitaa</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Cada instante ao seu lado é um presente do universo
+        <!-- TELA 2: SLIDES AUTOMÁTICOS -->
+        <div class="slides-container" id="slidesContainer">
+            <!-- Slide 1 -->
+            <div class="intro-slide" id="slide1">
+                <div class="slide-hearts">💖</div>
+                <h1 class="slide-title">Oi Amor</h1>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="intro-slide" id="slide2">
+                <div class="slide-hearts">💜</div>
+                <h1 class="slide-title">Você é Especial</h1>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="intro-slide" id="slide3">
+                <div class="slide-hearts">❤️</div>
+                <h1 class="slide-title">Te Amo Infinitamente</h1>
+            </div>
+            
+            <!-- Contador de slides -->
+            <div class="slide-counter" id="slideCounter">
+                <div class="counter-dot active" data-slide="1"></div>
+                <div class="counter-dot" data-slide="2"></div>
+                <div class="counter-dot" data-slide="3"></div>
+            </div>
+        </div>
+        
+        <!-- TELA 3: ABRIR PRESENTE -->
+        <div class="final-screen" id="finalScreen">
+            <div class="gift-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h1 class="final-title">
+                 <span class="final-name">Pronta Para Abrir o Presente?</span>
+            </h1>
+            </p>
+            
+            <!-- Barra de carregamento -->
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            
+            <button class="open-gift-btn" id="openGiftBtn">
+                <i class="fas fa-heart"></i>
+                Abrir Meu Presente
+            </button>
+        </div>
+    </div>
+    
+    <!-- ============================================
+         SITE PRINCIPAL
+    ============================================ -->
+    <div id="mainSite">
+        <!-- Partículas de fundo -->
+        <div id="particles-js"></div>
+        
+        <!-- Chuva de corações -->
+        <div class="hearts-rain" id="heartsRain"></div>
+        
+        <!-- Overlay para tela cheia -->
+        <div class="fullscreen-overlay" id="fullscreenOverlay"></div>
+        
+        <!-- Container Principal -->
+        <div class="container">
+            
+            <!-- Cabeçalho - Estilo MemoryIIT -->
+            <header class="header">
+                <div class="logo">
+                    <i class="fas fa-heart"></i>
+                    <span>Te Amu</span>
+                </div>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active">Início</a>
+                    <a href="#gallery" class="nav-link">Fotos</a>
+                    <a href="#music" class="nav-link">Música</a>
+                    <a href="#message" class="nav-link">Mensagem</a>
+                </nav>
+            </header>
+            
+            <!-- Seção 1: Contador Aprimorado -->
+            <section id="home" class="section hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Para <span class="highlight">Você Mi Gatitaa</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Cada instante ao seu lado é um presente do universo
+                    </p>
+                    
+                    <!-- Contador Aprimorado -->
+                    <div class="time-counter">
+                        <div class="counter-title">
+                            <i class="far fa-clock"></i>
+                            <h2>Nosso Tempo Juntos</h2>
+                            <p class="start-date">17 de Dezembro de 2023</p>
+                        </div>
+                        
+                        <div class="counter-grid">
+                            <!-- Anos -->
+                            <div class="counter-item">
+                                <div class="counter-value" id="years">0</div>
+                                <div class="counter-label">Anos</div>
+                            </div>
+                            
+                            <!-- Meses -->
+                            <div class="counter-item">
+                                <div class="counter-value" id="months">0</div>
+                                <div class="counter-label">Meses</div>
+                            </div>
+                            
+                            <!-- Dias -->
+                            <div class="counter-item">
+                                <div class="counter-value" id="days">0</div>
+                                <div class="counter-label">Dias</div>
+                            </div>
+                            
+                            <!-- Horas -->
+                            <div class="counter-item">
+                                <div class="counter-value" id="hours">00</div>
+                                <div class="counter-label">Horas</div>
+                            </div>
+                            
+                            <!-- Minutos -->
+                            <div class="counter-item">
+                                <div class="counter-value" id="minutes">00</div>
+                                <div class="counter-label">Minutos</div>
+                            </div>
+                            
+                            <!-- Segundos -->
+                            <div class="counter-item">
+                                <div class="counter-value" id="seconds">00</div>
+                                <div class="counter-label">Segundos</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Estatísticas Detalhadas -->
+                        <div class="counter-stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalDays">0</div>
+                                <div class="stat-label">Dias Totais</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalHours">0</div>
+                                <div class="stat-label">Horas Totais</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalMinutes">0</div>
+                                <div class="stat-label">Minutos Totais</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalSeconds">0</div>
+                                <div class="stat-label">Segundos Totais</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Progresso do Ano -->
+                        <div class="year-progress">
+                            <div class="progress-header">
+                                <span>Progresso deste ano juntos</span>
+                                <span id="yearPercent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="yearProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Setinha para próxima seção -->
+                <div class="scroll-down">
+                    <a href="#gallery">
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Seção 2: Galeria -->
+            <section id="gallery" class="section">
+                <h2 class="section-title">Nossas Memórias</h2>
+                <p class="section-subtitle">
+                    9 momentos especiais que guardo no coração
                 </p>
                 
-                <!-- Contador Aprimorado -->
-                <div class="time-counter">
-                    <div class="counter-title">
-                        <i class="far fa-clock"></i>
-                        <h2>Nosso Tempo Juntos</h2>
-                        <p class="start-date">17 de Dezembro de 2023</p>
-                    </div>
-                    
-                    <div class="counter-grid">
-                        <!-- Anos -->
-                        <div class="counter-item">
-                            <div class="counter-value" id="years">0</div>
-                            <div class="counter-label">Anos</div>
+                <!-- Container da galeria -->
+                <div class="gallery-container">
+                    <div class="gallery-slider" id="gallerySlider">
+                        <!-- Botão tela cheia -->
+                        <button class="fullscreen-btn" id="fullscreenBtn" title="Tela cheia">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        
+                        <!-- Slide 1 -->
+                        <div class="slide active">
+                            <img src="https://i.imgur.com/6F2LXN8.jpeg" alt="Nosso momento especial 1">
+                            <div class="slide-caption">Momento especial 1</div>
                         </div>
                         
-                        <!-- Meses -->
-                        <div class="counter-item">
-                            <div class="counter-value" id="months">0</div>
-                            <div class="counter-label">Meses</div>
+                        <!-- Slide 2 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/DVStLPQ.jpeg" alt="Nosso momento especial 2">
+                            <div class="slide-caption">Momento especial 2</div>
                         </div>
                         
-                        <!-- Dias -->
-                        <div class="counter-item">
-                            <div class="counter-value" id="days">0</div>
-                            <div class="counter-label">Dias</div>
+                        <!-- Slide 3 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/BMiNsDu.jpeg" alt="Nosso momento especial 3">
+                            <div class="slide-caption">Momento especial 3</div>
                         </div>
                         
-                        <!-- Horas -->
-                        <div class="counter-item">
-                            <div class="counter-value" id="hours">00</div>
-                            <div class="counter-label">Horas</div>
+                        <!-- Slide 4 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/GaFXser.jpeg" alt="Nosso momento especial 4">
+                            <div class="slide-caption">Momento especial 4</div>
                         </div>
                         
-                        <!-- Minutos -->
-                        <div class="counter-item">
-                            <div class="counter-value" id="minutes">00</div>
-                            <div class="counter-label">Minutos</div>
+                        <!-- Slide 5 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/QVbfD4U.jpeg" alt="Nosso momento especial 5">
+                            <div class="slide-caption">Momento especial 5</div>
                         </div>
                         
-                        <!-- Segundos -->
-                        <div class="counter-item">
-                            <div class="counter-value" id="seconds">00</div>
-                            <div class="counter-label">Segundos</div>
+                        <!-- Slide 6 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/6fAZL3D.jpeg" alt="Nosso momento especial 6">
+                            <div class="slide-caption">Momento especial 6</div>
                         </div>
-                    </div>
-                    
-                    <!-- Estatísticas Detalhadas -->
-                    <div class="counter-stats">
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalDays">0</div>
-                            <div class="stat-label">Dias Totais</div>
+                        
+                        <!-- Slide 7 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/y5fzUQx.jpeg" alt="Nosso momento especial 7">
+                            <div class="slide-caption">Momento especial 7</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalHours">0</div>
-                            <div class="stat-label">Horas Totais</div>
+                        
+                        <!-- Slide 8 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/lzgnB2L.jpeg" alt="Nosso momento especial 8">
+                            <div class="slide-caption">Momento especial 8</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalMinutes">0</div>
-                            <div class="stat-label">Minutos Totais</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="totalSeconds">0</div>
-                            <div class="stat-label">Segundos Totais</div>
+                        
+                        <!-- Slide 9 -->
+                        <div class="slide">
+                            <img src="https://i.imgur.com/1yI8oVE.jpeg" alt="Nosso momento especial 9">
+                            <div class="slide-caption">Momento especial 9</div>
                         </div>
                     </div>
                     
-                    <!-- Progresso do Ano -->
-                    <div class="year-progress">
-                        <div class="progress-header">
-                            <span>Progresso deste ano juntos</span>
-                            <span id="yearPercent">0%</span>
+                    <!-- Controles do slider -->
+                    <div class="slider-controls">
+                        <button class="slider-btn" id="prevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        
+                        <div class="slide-indicators" id="slideIndicators">
+                            <!-- Indicadores serão gerados via JavaScript -->
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="yearProgress"></div>
-                        </div>
+                        
+                        <button class="slider-btn" id="nextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Auto play toggle -->
+                    <div class="auto-play-toggle">
+                        <span>Auto-play</span>
+                        <div class="toggle-btn active" id="autoPlayToggle"></div>
+                        <span>(3 segundos)</span>
                     </div>
                 </div>
-            </div>
+            </section>
             
-            <!-- Setinha para próxima seção -->
-            <div class="scroll-down">
-                <a href="#gallery">
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-            </div>
-        </section>
-        
-        <!-- Seção 2: Galeria -->
-        <section id="gallery" class="section">
-            <h2 class="section-title">Nossas Memórias</h2>
-            <p class="section-subtitle">
-                9 momentos especiais que guardo no coração
-            </p>
-            
-            <!-- Container da galeria -->
-            <div class="gallery-container">
-                <div class="gallery-slider" id="gallerySlider">
-                    <!-- Slide 1 -->
-                    <div class="slide active">
-                        <img src="https://i.imgur.com/6F2LXN8.jpeg" alt="Nosso momento especial 1">
-                        <div class="slide-caption">Momento especial 1</div>
-                    </div>
-                    
-                    <!-- Slide 2 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/DVStLPQ.jpeg" alt="Nosso momento especial 2">
-                        <div class="slide-caption">Momento especial 2</div>
-                    </div>
-                    
-                    <!-- Slide 3 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/BMiNsDu.jpeg" alt="Nosso momento especial 3">
-                        <div class="slide-caption">Momento especial 3</div>
-                    </div>
-                    
-                    <!-- Slide 4 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/GaFXser.jpeg" alt="Nosso momento especial 4">
-                        <div class="slide-caption">Momento especial 4</div>
-                    </div>
-                    
-                    <!-- Slide 5 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/QVbfD4U.jpeg" alt="Nosso momento especial 5">
-                        <div class="slide-caption">Momento especial 5</div>
-                    </div>
-                    
-                    <!-- Slide 6 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/6fAZL3D.jpeg" alt="Nosso momento especial 6">
-                        <div class="slide-caption">Momento especial 6</div>
-                    </div>
-                    
-                    <!-- Slide 7 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/y5fzUQx.jpeg" alt="Nosso momento especial 7">
-                        <div class="slide-caption">Momento especial 7</div>
-                    </div>
-                    
-                    <!-- Slide 8 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/lzgnB2L.jpeg" alt="Nosso momento especial 8">
-                        <div class="slide-caption">Momento especial 8</div>
-                    </div>
-                    
-                    <!-- Slide 9 -->
-                    <div class="slide">
-                        <img src="https://i.imgur.com/1yI8oVE.jpeg" alt="Nosso momento especial 9">
-                        <div class="slide-caption">Momento especial 9</div>
-                    </div>
-                </div>
+            <!-- Seção 3: Música -->
+            <section id="music" class="section">
+                <h2 class="section-title">Nossa Trilha Sonora</h2>
+                <p class="section-subtitle">
+                    Música que marca nossa história
+                </p>
                 
-                <!-- Controles do slider -->
-                <div class="slider-controls">
-                    <button class="slider-btn" id="prevBtn">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    
-                    <div class="slide-indicators" id="slideIndicators">
-                        <!-- Indicadores serão gerados via JavaScript -->
+                <!-- Player de música -->
+                <div class="music-container">
+                    <div class="spotify-player">
+                        <div class="player-info">
+                            <h3>Paper Rings - Taylor Swift</h3>
+                            <p>Uma música que nos representa</p>
+                        </div>
+                        <!-- SPOTIFY COM TIMESTAMP DE 30 SEGUNDOS -->
+                        <iframe style="border-radius:12px; width:100%; height:380px;" 
+                            src="https://open.spotify.com/embed/track/4y5bvROuBDPr5fuwXbIBZR?utm_source=generator&theme=0#t=0m30s" 
+                            frameBorder="0" 
+                            allowfullscreen="" 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy">
+                        </iframe>
                     </div>
-                    
-                    <button class="slider-btn" id="nextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
                 </div>
+            </section>
+            
+            <!-- Seção 4: Mensagem -->
+            <section id="message" class="section">
+                <h2 class="section-title">Para Você</h2>
+                <p class="section-subtitle">
+                    Palavras do coração
+                </p>
                 
-                <!-- Auto play toggle -->
-                <div class="auto-play-toggle">
-                    <span>Auto-play</span>
-                    <div class="toggle-btn active" id="autoPlayToggle"></div>
-                    <span>(3 segundos)</span>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção 3: Música -->
-        <section id="music" class="section">
-            <h2 class="section-title">Nossa Trilha Sonora</h2>
-            <p class="section-subtitle">
-                Música que marca nossa história
-            </p>
-            
-            <!-- Player de música -->
-            <div class="music-container">
-                <div class="spotify-player">
-                    <div class="player-info">
-                        <h3>Paper Rings - Taylor Swift</h3>
-                        <p>Uma música que nos representa</p>
-                    </div>
-                    <iframe style="border-radius:12px; width:100%; height:380px;" 
-                        src="https://open.spotify.com/embed/track/4y5bvROuBDPr5fuwXbIBZR?utm_source=generator&theme=0" 
-                        frameBorder="0" 
-                        allowfullscreen="" 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy">
-                    </iframe>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Seção 4: Mensagem -->
-        <section id="message" class="section">
-            <h2 class="section-title">Para Você</h2>
-            <p class="section-subtitle">
-                Palavras do coração
-            </p>
-            
-            <!-- Quadro de mensagem -->
-            <div class="message-container">
-                <div class="message-box">
-                    <div class="message-content">
-                        Mi Gatitaa,<br><br>
+                <!-- Quadro de mensagem -->
+                <div class="message-container">
+                    <div class="message-box">
+                        <div class="message-content">
+                            Mi Gatitaa,<br><br>
+                            
+                            Desde que você entrou na minha vida, cada dia ganhou um novo significado. 
+                            Lembro como se fosse hoje do dia em que eu me apaixonei pela dona do sorriso mais lindo do mundo.<br><br>
+                            
+                            São <span id="messageDays">0</span> dias de risadas compartilhadas, 
+                            <span id="messageHours">0</span> horas de conversas que nunca têm fim, 
+                            e <span id="messageMinutes">0</span> minutos onde cada instante ao seu lado 
+                            se transforma em uma memória eterna.<br><br>
+                            
+                            Você é a pessoa mais incrível que já conheci. Sua força, sua doçura, 
+                            seu jeito único de ver o mundo... Tudo em você me inspira a ser melhor.<br><br>
+                            
+                            Este site é apenas um pequeno reflexo de tudo que sinto. 
+                            Um cantinho digital onde nosso amor tem um lugar especial para sempre.<br><br>
+                            
+                            Obrigado por ser você. Obrigado por me escolher todos os dias.
+                        </div>
                         
-                        Desde que você entrou na minha vida, cada dia ganhou um novo significado. 
-                        Lembro como se fosse hoje do dia em que eu me apaixonei pela dona do sorriso mais lindo do mundo.<br><br>
-                        
-                        São <span id="messageDays">0</span> dias de risadas compartilhadas, 
-                        <span id="messageHours">0</span> horas de conversas que nunca têm fim, 
-                        e <span id="messageMinutes">0</span> minutos onde cada instante ao seu lado 
-                        se transforma em uma memória eterna.<br><br>
-                        
-                        Você é a pessoa mais incrível que já conheci. Sua força, sua doçura, 
-                        seu jeito único de ver o mundo... Tudo em você me inspira a ser melhor.<br><br>
-                        
-                        Este site é apenas um pequeno reflexo de tudo que sinto. 
-                        Um cantinho digital onde nosso amor tem um lugar especial para sempre.<br><br>
-                        
-                        Obrigado por ser você e estar sempre ao meu lado, eu te amarei todos os dias minha princesa.
-                    </div>
-                    
-                    <div class="message-signature">
-                        <div class="signature-name">Sou todo seu</div>
-                        <div class="signature-date">De 17/12/2023 até a eternidade</div>
+                        <div class="message-signature">
+                            <div class="signature-name">Para sempre seu</div>
+                            <div class="signature-date">Desde 17/12/2023 até a eternidade</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
     
     <script>
-        // Inicializar partículas
-        document.addEventListener('DOMContentLoaded', function() {
+        // ============================================
+        // INTRODUÇÃO - JAVASCRIPT
+        // ============================================
+        const introOverlay = document.getElementById('introOverlay');
+        const startScreen = document.getElementById('startScreen');
+        const slidesContainer = document.getElementById('slidesContainer');
+        const finalScreen = document.getElementById('finalScreen');
+        const mainSite = document.getElementById('mainSite');
+        
+        const startBtn = document.getElementById('startBtn');
+        const openGiftBtn = document.getElementById('openGiftBtn');
+        const loadingProgress = document.getElementById('loadingProgress');
+        
+        const slides = document.querySelectorAll('.intro-slide');
+        const dots = document.querySelectorAll('.counter-dot');
+        
+        // Variáveis de controle
+        let currentSlide = 0;
+        const slideDuration = 4000; // 2 segundos por slide
+        let slideInterval;
+        
+        // 1. INICIAR - Botão "Começar"
+        startBtn.addEventListener('click', () => {
+            // Esconde tela inicial
+            startScreen.style.display = 'none';
+            
+            // Mostra slides
+            slidesContainer.style.display = 'block';
+            
+            // Inicia slides automáticos
+            startSlideshow();
+        });
+        
+        // 2. SLIDESHOW AUTOMÁTICO
+        function startSlideshow() {
+            // Mostra primeiro slide
+            showSlide(0);
+            
+            // Inicia intervalo para trocar slides
+            slideInterval = setInterval(() => {
+                currentSlide++;
+                
+                if (currentSlide < slides.length) {
+                    showSlide(currentSlide);
+                } else {
+                    // Terminou os slides
+                    clearInterval(slideInterval);
+                    showFinalScreen();
+                }
+            }, slideDuration);
+        }
+        
+        function showSlide(index) {
+            // Esconde todos os slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Remove active de todos os dots
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            // Mostra slide atual
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+        
+        // 3. MOSTRAR TELA FINAL
+        function showFinalScreen() {
+            // Esconde slides
+            slidesContainer.style.display = 'none';
+            
+            // Mostra tela final
+            finalScreen.style.display = 'block';
+            
+            // Anima barra de progresso
+            setTimeout(() => {
+                loadingProgress.style.width = '100%';
+            }, 100);
+        }
+        
+        // 4. ABRIR PRESENTE - Botão final
+        openGiftBtn.addEventListener('click', () => {
+            // Animação de transição
+            openGiftBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Abrindo...';
+            openGiftBtn.disabled = true;
+            
+            // Efeito de fade out
+            introOverlay.style.transition = 'opacity 1s ease';
+            introOverlay.style.opacity = '0';
+            
+            // Mostra site principal
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+                mainSite.style.display = 'block';
+                
+                // Inicializa o site principal
+                initializeMainSite();
+                
+                // Rola para o topo
+                window.scrollTo(0, 0);
+            }, 1000);
+        });
+        
+        // 5. PULAR INTRODUÇÃO (tecla ESC ou clique duplo)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                skipIntro();
+            }
+        });
+        
+        let clickCount = 0;
+        document.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount >= 3) {
+                skipIntro();
+            }
+            setTimeout(() => { clickCount = 0; }, 1000);
+        });
+        
+        function skipIntro() {
+            clearInterval(slideInterval);
+            introOverlay.style.display = 'none';
+            mainSite.style.display = 'block';
+            initializeMainSite();
+            window.scrollTo(0, 0);
+        }
+        
+        // ============================================
+        // SITE PRINCIPAL - JAVASCRIPT
+        // ============================================
+        function initializeMainSite() {
+            // Inicializar partículas
             particlesJS('particles-js', {
                 particles: {
                     number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -1111,10 +1718,16 @@
             // Inicializar galeria
             initGallery();
             
+            // Inicializar chuva de corações
+            initHeartsRain();
+            
             // Atualizar números na mensagem
             updateMessageNumbers();
-            setInterval(updateMessageNumbers, 60000); // Atualizar a cada minuto
-        });
+            setInterval(updateMessageNumbers, 60000);
+            
+            // Configurar botão tela cheia
+            initFullscreen();
+        }
         
         // Data de início
         const START_DATE = new Date('2023-12-17T00:00:00');
@@ -1132,7 +1745,10 @@
             totalMinutes: document.getElementById('totalMinutes'),
             totalSeconds: document.getElementById('totalSeconds'),
             yearPercent: document.getElementById('yearPercent'),
-            yearProgress: document.getElementById('yearProgress')
+            yearProgress: document.getElementById('yearProgress'),
+            messageDays: document.getElementById('messageDays'),
+            messageHours: document.getElementById('messageHours'),
+            messageMinutes: document.getElementById('messageMinutes')
         };
         
         function initCounter() {
@@ -1188,6 +1804,11 @@
             elements.totalMinutes.textContent = totalMinutes.toLocaleString();
             elements.totalSeconds.textContent = totalSeconds.toLocaleString();
             
+            // Atualizar mensagem
+            elements.messageDays.textContent = totalDays.toLocaleString();
+            elements.messageHours.textContent = totalHours.toLocaleString();
+            elements.messageMinutes.textContent = totalMinutes.toLocaleString();
+            
             // Progresso do ano
             updateYearProgress(now);
         }
@@ -1203,78 +1824,114 @@
             elements.yearProgress.style.width = `${percentage}%`;
         }
         
+        // CHUVA DE CORAÇÕES
+        function initHeartsRain() {
+            const heartsRain = document.getElementById('heartsRain');
+            const heartCount = 25;
+            
+            for (let i = 0; i < heartCount; i++) {
+                createHeart(heartsRain);
+            }
+            
+            setInterval(() => {
+                const existingHearts = heartsRain.querySelectorAll('.heart-rain');
+                if (existingHearts.length < heartCount) {
+                    createHeart(heartsRain);
+                }
+            }, 2000);
+        }
+        
+        function createHeart(container) {
+            const heart = document.createElement('div');
+            heart.className = 'heart-rain';
+            heart.innerHTML = '❤️';
+            
+            const sizes = ['18px', '22px', '25px', '28px', '32px'];
+            heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = 15 + Math.random() * 10;
+            heart.style.animationDuration = duration + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                if (heart.parentNode) {
+                    heart.remove();
+                }
+            }, duration * 1000);
+        }
+        
         // GALERIA
-        let currentSlide = 0;
-        let slideInterval;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        let currentGallerySlide = 0;
+        let gallerySlideInterval;
+        const gallerySlides = document.querySelectorAll('.slide');
+        const totalGallerySlides = gallerySlides.length;
         let autoPlay = true;
-        const autoPlayDelay = 3000; // 3 segundos
+        const autoPlayDelay = 3000;
         
         function initGallery() {
             // Criar indicadores
             const indicatorsContainer = document.getElementById('slideIndicators');
-            for (let i = 0; i < totalSlides; i++) {
+            for (let i = 0; i < totalGallerySlides; i++) {
                 const indicator = document.createElement('div');
                 indicator.className = 'indicator' + (i === 0 ? ' active' : '');
                 indicator.dataset.index = i;
-                indicator.addEventListener('click', () => goToSlide(i));
+                indicator.addEventListener('click', () => goToGallerySlide(i));
                 indicatorsContainer.appendChild(indicator);
             }
             
             // Configurar botões
-            document.getElementById('prevBtn').addEventListener('click', prevSlide);
-            document.getElementById('nextBtn').addEventListener('click', nextSlide);
+            document.getElementById('prevBtn').addEventListener('click', prevGallerySlide);
+            document.getElementById('nextBtn').addEventListener('click', nextGallerySlide);
             
             // Configurar auto-play toggle
             document.getElementById('autoPlayToggle').addEventListener('click', toggleAutoPlay);
             
             // Iniciar auto-play
-            startAutoPlay();
+            startGalleryAutoPlay();
             
             // Pausar auto-play ao passar mouse
             const slider = document.getElementById('gallerySlider');
-            slider.addEventListener('mouseenter', pauseAutoPlay);
+            slider.addEventListener('mouseenter', pauseGalleryAutoPlay);
             slider.addEventListener('mouseleave', () => {
-                if (autoPlay) startAutoPlay();
+                if (autoPlay) startGalleryAutoPlay();
             });
         }
         
-        function goToSlide(index) {
-            // Remover active de todos os slides e indicadores
-            slides.forEach(slide => slide.classList.remove('active'));
+        function goToGallerySlide(index) {
+            gallerySlides.forEach(slide => slide.classList.remove('active'));
             document.querySelectorAll('.indicator').forEach(ind => ind.classList.remove('active'));
             
-            // Adicionar active ao slide e indicador atual
-            currentSlide = index;
-            slides[currentSlide].classList.add('active');
-            document.querySelectorAll('.indicator')[currentSlide].classList.add('active');
+            currentGallerySlide = index;
+            gallerySlides[currentGallerySlide].classList.add('active');
+            document.querySelectorAll('.indicator')[currentGallerySlide].classList.add('active');
             
-            // Reiniciar auto-play
             if (autoPlay) {
-                clearInterval(slideInterval);
-                startAutoPlay();
+                clearInterval(gallerySlideInterval);
+                startGalleryAutoPlay();
             }
         }
         
-        function nextSlide() {
-            let nextIndex = currentSlide + 1;
-            if (nextIndex >= totalSlides) nextIndex = 0;
-            goToSlide(nextIndex);
+        function nextGallerySlide() {
+            let nextIndex = currentGallerySlide + 1;
+            if (nextIndex >= totalGallerySlides) nextIndex = 0;
+            goToGallerySlide(nextIndex);
         }
         
-        function prevSlide() {
-            let prevIndex = currentSlide - 1;
-            if (prevIndex < 0) prevIndex = totalSlides - 1;
-            goToSlide(prevIndex);
+        function prevGallerySlide() {
+            let prevIndex = currentGallerySlide - 1;
+            if (prevIndex < 0) prevIndex = totalGallerySlides - 1;
+            goToGallerySlide(prevIndex);
         }
         
-        function startAutoPlay() {
-            slideInterval = setInterval(nextSlide, autoPlayDelay);
+        function startGalleryAutoPlay() {
+            gallerySlideInterval = setInterval(nextGallerySlide, autoPlayDelay);
         }
         
-        function pauseAutoPlay() {
-            clearInterval(slideInterval);
+        function pauseGalleryAutoPlay() {
+            clearInterval(gallerySlideInterval);
         }
         
         function toggleAutoPlay() {
@@ -1282,15 +1939,61 @@
             autoPlay = !autoPlay;
             
             if (autoPlay) {
-                startAutoPlay();
+                startGalleryAutoPlay();
                 toggleBtn.classList.add('active');
             } else {
-                pauseAutoPlay();
+                pauseGalleryAutoPlay();
                 toggleBtn.classList.remove('active');
             }
         }
         
-        // Atualizar números na mensagem
+        // TELA CHEIA
+        function initFullscreen() {
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const gallerySlider = document.getElementById('gallerySlider');
+            const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+            
+            let isFullscreen = false;
+            
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && isFullscreen) {
+                    exitFullscreen();
+                }
+            });
+            
+            fullscreenOverlay.addEventListener('click', exitFullscreen);
+            
+            function toggleFullscreen() {
+                if (!isFullscreen) {
+                    enterFullscreen();
+                } else {
+                    exitFullscreen();
+                }
+            }
+            
+            function enterFullscreen() {
+                gallerySlider.classList.add('fullscreen');
+                fullscreenOverlay.classList.add('active');
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                fullscreenBtn.title = 'Sair da tela cheia';
+                document.body.style.overflow = 'hidden';
+                isFullscreen = true;
+                pauseGalleryAutoPlay();
+            }
+            
+            function exitFullscreen() {
+                gallerySlider.classList.remove('fullscreen');
+                fullscreenOverlay.classList.remove('active');
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                fullscreenBtn.title = 'Tela cheia';
+                document.body.style.overflow = '';
+                isFullscreen = false;
+                if (autoPlay) startGalleryAutoPlay();
+            }
+        }
+        
         function updateMessageNumbers() {
             const now = new Date();
             const diff = now - START_DATE;
@@ -1300,13 +2003,12 @@
             const totalHours = Math.floor(totalMinutes / 60);
             const totalDays = Math.floor(totalHours / 24);
             
-            document.getElementById('messageDays').textContent = totalDays.toLocaleString();
-            document.getElementById('messageHours').textContent = totalHours.toLocaleString();
-            document.getElementById('messageMinutes').textContent = totalMinutes.toLocaleString();
+            elements.messageDays.textContent = totalDays.toLocaleString();
+            elements.messageHours.textContent = totalHours.toLocaleString();
+            elements.messageMinutes.textContent = totalMinutes.toLocaleString();
         }
         
         function initNavigation() {
-            // Smooth scroll para navegação
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1320,7 +2022,6 @@
                             behavior: 'smooth'
                         });
                         
-                        // Atualizar navegação ativa
                         document.querySelectorAll('.nav-link').forEach(link => {
                             link.classList.remove('active');
                         });
@@ -1329,7 +2030,6 @@
                 });
             });
             
-            // Ativar navegação baseada no scroll
             window.addEventListener('scroll', () => {
                 const sections = document.querySelectorAll('.section');
                 const scrollPos = window.scrollY + 100;
@@ -1350,7 +2050,11 @@
                 });
             });
         }
+        
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Site carregado. Aguardando interação...');
+        });
     </script>
 </body>
-
 </html>
