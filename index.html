@@ -9,12 +9,16 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
         /* ============================================
-           ESTILOS DA INTRODUÇÃO
+           RESET E CONFIGURAÇÕES GERAIS
         ============================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -25,18 +29,15 @@
             overflow-x: hidden;
         }
         
-        /* Container principal do site (começa escondido) */
-        #mainSite {
-            display: none;
-        }
+        /* ============================================
+           INTRODUÇÃO (mantida igual)
+        ============================================ */
+        #mainSite { display: none; }
         
-        /* Overlay de introdução */
         .intro-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: #000;
             z-index: 9999;
             display: flex;
@@ -45,8 +46,7 @@
             align-items: center;
         }
         
-        /* Tela inicial - Começar */
-        .start-screen {
+        .start-screen { 
             text-align: center;
             max-width: 600px;
             padding: 40px;
@@ -86,7 +86,6 @@
             line-height: 1.6;
         }
         
-        /* Botões */
         .start-btn, .open-gift-btn {
             background: linear-gradient(45deg, #9d4edd, #c084fc);
             border: none;
@@ -108,20 +107,11 @@
             box-shadow: 0 15px 30px rgba(157, 78, 221, 0.4);
         }
         
-        /* Slides automáticos */
-        .slides-container {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-        
+        .slides-container { display: none; }
         .intro-slide {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -157,7 +147,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .slide-subtitle {
@@ -167,7 +156,6 @@
             line-height: 1.6;
         }
         
-        /* Contador de slides */
         .slide-counter {
             position: absolute;
             bottom: 30px;
@@ -178,8 +166,7 @@
         }
         
         .counter-dot {
-            width: 10px;
-            height: 10px;
+            width: 10px; height: 10px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             transition: all 0.3s;
@@ -190,7 +177,6 @@
             transform: scale(1.3);
         }
         
-        /* Tela final - Abrir presente */
         .final-screen {
             display: none;
             text-align: center;
@@ -224,8 +210,7 @@
         }
         
         .loading-bar {
-            width: 300px;
-            height: 4px;
+            width: 300px; height: 4px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
             margin: 30px auto;
@@ -240,60 +225,135 @@
             transition: width 2s ease;
         }
         
-        /* Responsividade da introdução */
+        /* Responsividade introdução */
         @media (max-width: 768px) {
-            .start-title, .slide-title {
-                font-size: 2.5rem;
-            }
-            
-            .final-title {
-                font-size: 2.2rem;
-            }
-            
-            .slide-subtitle, .start-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .start-btn, .open-gift-btn {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
-            
-            .welcome-hearts, .slide-hearts {
-                font-size: 3rem;
-            }
-            
-            .gift-icon {
-                font-size: 4rem;
-            }
+            .start-title, .slide-title { font-size: 2.5rem; }
+            .final-title { font-size: 2.2rem; }
+            .slide-subtitle, .start-subtitle { font-size: 1.2rem; }
+            .start-btn, .open-gift-btn { padding: 15px 30px; font-size: 1.1rem; }
+            .welcome-hearts, .slide-hearts { font-size: 3rem; }
+            .gift-icon { font-size: 4rem; }
         }
         
         @media (max-width: 480px) {
-            .start-title, .slide-title {
-                font-size: 2rem;
-            }
-            
-            .final-title {
-                font-size: 1.8rem;
-            }
-            
-            .slide-subtitle, .start-subtitle {
-                font-size: 1rem;
-            }
-            
-            .start-screen, .final-screen {
-                padding: 20px;
-            }
-            
-            .loading-bar {
-                width: 250px;
-            }
+            .start-title, .slide-title { font-size: 2rem; }
+            .final-title { font-size: 1.8rem; }
+            .slide-subtitle, .start-subtitle { font-size: 1rem; }
+            .start-screen, .final-screen { padding: 20px; }
+            .loading-bar { width: 250px; }
+        }
+        
+        /* ============================================
+           NOVOS EFEITOS ESTÉTICOS
+        ============================================ */
+        
+        /* 1. GRADIENTE ANIMADO DE FUNDO */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, 
+                #000000, #0a0014, #1a0033, #2a0052, #3a0071);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            z-index: -2;
+            opacity: 0.8;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 2. GLASSMORPHISM PREMIUM */
+        .time-counter, .message-box, .spotify-player,
+        .gallery-container, .music-container, .message-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+        }
+        
+        /* 3. REVELAÇÃO AO SCROLL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 4. EFEITO DE DIGITAÇÃO NA MENSAGEM */
+        .typing-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .typing-effect {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 3px solid #c084fc;
+            white-space: normal;
+            animation: typing 3.5s steps(40, end) forwards,
+                       blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #c084fc; }
+        }
+        
+        /* 5. EFEITO 3D NOS CARDS DO CONTADOR */
+        .counter-item {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        
+        .counter-item:hover {
+            transform: translateY(-12px) rotateX(5deg) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(157, 78, 221, 0.25),
+                0 10px 20px rgba(157, 78, 221, 0.15),
+                inset 0 -3px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Emoji acima de cada card */
+        .time-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+            animation: emojiFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 5px 10px rgba(157, 78, 221, 0.3));
+        }
+        
+        @keyframes emojiFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
         }
         
         /* ============================================
            ESTILOS DO SITE PRINCIPAL
         ============================================ */
-        /* Partículas de fundo */
+        
+        /* Partículas e chuva de corações */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -301,7 +361,6 @@
             z-index: -1;
         }
         
-        /* Chuva de corações */
         .hearts-rain {
             position: fixed;
             top: 0;
@@ -330,6 +389,7 @@
             }
         }
         
+        /* Container principal */
         .container {
             width: 100%;
             max-width: 1200px;
@@ -339,20 +399,20 @@
             z-index: 1;
         }
         
-        /* Header - Estilo MemoryIIT */
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 0;
+            padding: 25px 5%;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             z-index: 1000;
-            padding: 25px 5%;
             border-bottom: 1px solid rgba(157, 78, 221, 0.2);
         }
         
@@ -407,7 +467,7 @@
             border-radius: 2px;
         }
         
-        /* Hero Section - Estilo MemoryIIT */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -416,34 +476,7 @@
             align-items: center;
             text-align: center;
             padding: 150px 20px 50px;
-            background: linear-gradient(
-                135deg,
-                rgba(0, 0, 0, 0.9) 0%,
-                rgba(10, 0, 20, 0.85) 50%,
-                rgba(26, 0, 51, 0.8) 100%
-            );
             position: relative;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(
-                circle at 50% 50%,
-                rgba(157, 78, 221, 0.1) 0%,
-                transparent 70%
-            );
-            z-index: -1;
-        }
-        
-        .hero-content {
-            max-width: 900px;
-            margin: 0 auto;
-            width: 100%;
         }
         
         .hero-title {
@@ -482,17 +515,11 @@
             letter-spacing: 1px;
         }
         
-        /* Contador Aprimorado - Love-Counter Style */
+        /* Contador Aprimorado com Emojis */
         .time-counter {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
             padding: 50px 40px;
-            border: 1px solid rgba(157, 78, 221, 0.15);
-            width: 100%;
             margin: 30px auto 0;
             max-width: 1000px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -551,7 +578,7 @@
             background: rgba(192, 132, 252, 0.5);
         }
         
-        /* Grid do contador aprimorado */
+        /* Grid do contador com emojis */
         .counter-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -560,34 +587,10 @@
         }
         
         .counter-item {
-            background: linear-gradient(
-                135deg,
-                rgba(255, 255, 255, 0.08) 0%,
-                rgba(255, 255, 255, 0.04) 100%
-            );
-            border-radius: 15px;
             padding: 30px 15px;
             text-align: center;
-            border: 1px solid rgba(157, 78, 221, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
+            border-radius: 15px;
             overflow: hidden;
-        }
-        
-        .counter-item:hover {
-            transform: translateY(-8px);
-            border-color: rgba(157, 78, 221, 0.3);
-            box-shadow: 0 15px 30px rgba(157, 78, 221, 0.15);
-        }
-        
-        .counter-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #9d4edd, transparent);
         }
         
         .counter-value {
@@ -595,7 +598,7 @@
             font-weight: 700;
             font-family: 'Inter', monospace;
             color: #9d4edd;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
             text-shadow: 0 0 20px rgba(157, 78, 221, 0.3);
             letter-spacing: 1px;
         }
@@ -606,6 +609,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 500;
+            margin-top: 10px;
         }
         
         /* Estatísticas detalhadas */
@@ -641,9 +645,9 @@
         /* Progresso do ano */
         .year-progress {
             margin-top: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
             padding: 25px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(157, 78, 221, 0.1);
         }
         
@@ -694,7 +698,7 @@
             border: 1px solid rgba(157, 78, 221, 0.3);
         }
         
-        /* Seções */
+        /* Seções com revelação */
         .section {
             min-height: 100vh;
             padding: 150px 20px 80px;
@@ -724,16 +728,16 @@
             line-height: 1.6;
         }
         
-        /* GALERIA - Estilo MemoryIIT */
+        /* GALERIA */
         #gallery {
-            background: rgba(10, 0, 20, 0.95);
-            border-top: 1px solid rgba(157, 78, 221, 0.1);
+            background: rgba(10, 0, 20, 0.7);
         }
         
         .gallery-container {
             max-width: 1000px;
             margin: 0 auto;
             width: 100%;
+            padding: 30px;
         }
         
         .gallery-slider {
@@ -742,8 +746,6 @@
             height: 600px;
             overflow: hidden;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(157, 78, 221, 0.2);
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -931,21 +933,18 @@
         
         /* MÚSICA */
         #music {
-            background: rgba(15, 0, 30, 0.95);
+            background: rgba(15, 0, 30, 0.7);
         }
         
         .music-container {
             max-width: 800px;
             margin: 0 auto;
             width: 100%;
+            padding: 30px;
         }
         
         .spotify-player {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(157, 78, 221, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
         
         .player-info {
@@ -966,24 +965,20 @@
             font-size: 1rem;
         }
         
-        /* MENSAGEM */
+        /* MENSAGEM COM EFEITO DE DIGITAÇÃO */
         #message {
-            background: rgba(20, 0, 40, 0.95);
+            background: rgba(20, 0, 40, 0.7);
         }
         
         .message-container {
             max-width: 800px;
             margin: 0 auto;
             width: 100%;
+            padding: 30px;
         }
         
         .message-box {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
             padding: 60px 40px;
-            border: 1px solid rgba(157, 78, 221, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -1041,7 +1036,7 @@
             display: block;
         }
         
-        /* Responsividade do site principal */
+        /* Responsividade */
         @media (max-width: 1100px) {
             .counter-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -1080,6 +1075,10 @@
             
             .counter-value {
                 font-size: 2.5rem;
+            }
+            
+            .time-emoji {
+                font-size: 2rem;
             }
             
             .time-counter {
@@ -1142,6 +1141,10 @@
             
             .counter-value {
                 font-size: 2.2rem;
+            }
+            
+            .time-emoji {
+                font-size: 1.8rem;
             }
             
             .nav {
@@ -1215,13 +1218,13 @@
             <!-- Slide 2 -->
             <div class="intro-slide" id="slide2">
                 <div class="slide-hearts">💜</div>
-                <h1 class="slide-title">Você é Especial</h1>
+                <h1 class="slide-title">Você é Muito Especial Pra Mim</h1>
             </div>
             
             <!-- Slide 3 -->
             <div class="intro-slide" id="slide3">
                 <div class="slide-hearts">❤️</div>
-                <h1 class="slide-title">Te Amo Infinitamente</h1>
+                <h1 class="slide-title">Eu Te Amo Infinitamente</h1>
             </div>
             
             <!-- Contador de slides -->
@@ -1240,7 +1243,7 @@
             <h1 class="final-title">
                  <span class="final-name">Pronta Para Abrir o Presente?</span>
             </h1>
-            </p>
+           
             
             <!-- Barra de carregamento -->
             <div class="loading-bar">
@@ -1270,7 +1273,7 @@
         <!-- Container Principal -->
         <div class="container">
             
-            <!-- Cabeçalho - Estilo MemoryIIT -->
+            <!-- Cabeçalho -->
             <header class="header">
                 <div class="logo">
                     <i class="fas fa-heart"></i>
@@ -1284,9 +1287,9 @@
                 </nav>
             </header>
             
-            <!-- Seção 1: Contador Aprimorado -->
+            <!-- Seção 1: Contador com Emojis -->
             <section id="home" class="section hero">
-                <div class="hero-content">
+                <div class="hero-content reveal">
                     <h1 class="hero-title">
                         Para <span class="highlight">Você Mi Gatitaa</span>
                     </h1>
@@ -1295,7 +1298,7 @@
                     </p>
                     
                     <!-- Contador Aprimorado -->
-                    <div class="time-counter">
+                    <div class="time-counter reveal">
                         <div class="counter-title">
                             <i class="far fa-clock"></i>
                             <h2>Nosso Tempo Juntos</h2>
@@ -1305,43 +1308,49 @@
                         <div class="counter-grid">
                             <!-- Anos -->
                             <div class="counter-item">
+                                <span class="time-emoji">📅</span>
                                 <div class="counter-value" id="years">0</div>
                                 <div class="counter-label">Anos</div>
                             </div>
                             
                             <!-- Meses -->
                             <div class="counter-item">
+                                <span class="time-emoji">📆</span>
                                 <div class="counter-value" id="months">0</div>
                                 <div class="counter-label">Meses</div>
                             </div>
                             
                             <!-- Dias -->
                             <div class="counter-item">
+                                <span class="time-emoji">☀️</span>
                                 <div class="counter-value" id="days">0</div>
                                 <div class="counter-label">Dias</div>
                             </div>
                             
                             <!-- Horas -->
                             <div class="counter-item">
+                                <span class="time-emoji">🕐</span>
                                 <div class="counter-value" id="hours">00</div>
                                 <div class="counter-label">Horas</div>
                             </div>
                             
                             <!-- Minutos -->
                             <div class="counter-item">
+                                <span class="time-emoji">⏳</span>
                                 <div class="counter-value" id="minutes">00</div>
                                 <div class="counter-label">Minutos</div>
                             </div>
                             
                             <!-- Segundos -->
                             <div class="counter-item">
+                                <span class="time-emoji">⚡</span>
                                 <div class="counter-value" id="seconds">00</div>
                                 <div class="counter-label">Segundos</div>
                             </div>
                         </div>
                         
                         <!-- Estatísticas Detalhadas -->
-                        <div class="counter-stats">
+                        <div class="counter-stats reveal">
                             <div class="stat-item">
                                 <div class="stat-value" id="totalDays">0</div>
                                 <div class="stat-label">Dias Totais</div>
@@ -1361,7 +1370,7 @@
                         </div>
                         
                         <!-- Progresso do Ano -->
-                        <div class="year-progress">
+                        <div class="year-progress reveal">
                             <div class="progress-header">
                                 <span>Progresso deste ano juntos</span>
                                 <span id="yearPercent">0%</span>
@@ -1374,7 +1383,7 @@
                 </div>
                 
                 <!-- Setinha para próxima seção -->
-                <div class="scroll-down">
+                <div class="scroll-down reveal">
                     <a href="#gallery">
                         <i class="fas fa-chevron-down"></i>
                     </a>
@@ -1383,68 +1392,60 @@
             
             <!-- Seção 2: Galeria -->
             <section id="gallery" class="section">
-                <h2 class="section-title">Nossas Memórias</h2>
-                <p class="section-subtitle">
-                    9 momentos especiais que guardo no coração
+                <h2 class="section-title reveal">Nossas Memórias</h2>
+                <p class="section-subtitle reveal">
+                    Momentos especiais que guardo no coração
                 </p>
                 
                 <!-- Container da galeria -->
-                <div class="gallery-container">
+                <div class="gallery-container reveal">
                     <div class="gallery-slider" id="gallerySlider">
                         <!-- Botão tela cheia -->
                         <button class="fullscreen-btn" id="fullscreenBtn" title="Tela cheia">
                             <i class="fas fa-expand"></i>
                         </button>
                         
-                        <!-- Slide 1 -->
+                        <!-- Slides das fotos -->
                         <div class="slide active">
                             <img src="https://i.imgur.com/6F2LXN8.jpeg" alt="Nosso momento especial 1">
                             <div class="slide-caption">Momento especial 1</div>
                         </div>
                         
-                        <!-- Slide 2 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/DVStLPQ.jpeg" alt="Nosso momento especial 2">
                             <div class="slide-caption">Momento especial 2</div>
                         </div>
                         
-                        <!-- Slide 3 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/BMiNsDu.jpeg" alt="Nosso momento especial 3">
                             <div class="slide-caption">Momento especial 3</div>
                         </div>
                         
-                        <!-- Slide 4 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/GaFXser.jpeg" alt="Nosso momento especial 4">
                             <div class="slide-caption">Momento especial 4</div>
                         </div>
                         
-                        <!-- Slide 5 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/QVbfD4U.jpeg" alt="Nosso momento especial 5">
                             <div class="slide-caption">Momento especial 5</div>
                         </div>
                         
-                        <!-- Slide 6 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/6fAZL3D.jpeg" alt="Nosso momento especial 6">
                             <div class="slide-caption">Momento especial 6</div>
                         </div>
                         
-                        <!-- Slide 7 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/y5fzUQx.jpeg" alt="Nosso momento especial 7">
                             <div class="slide-caption">Momento especial 7</div>
                         </div>
                         
-                        <!-- Slide 8 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/lzgnB2L.jpeg" alt="Nosso momento especial 8">
                             <div class="slide-caption">Momento especial 8</div>
                         </div>
                         
-                        <!-- Slide 9 -->
                         <div class="slide">
                             <img src="https://i.imgur.com/1yI8oVE.jpeg" alt="Nosso momento especial 9">
                             <div class="slide-caption">Momento especial 9</div>
@@ -1452,7 +1453,7 @@
                     </div>
                     
                     <!-- Controles do slider -->
-                    <div class="slider-controls">
+                    <div class="slider-controls reveal">
                         <button class="slider-btn" id="prevBtn">
                             <i class="fas fa-chevron-left"></i>
                         </button>
@@ -1467,7 +1468,7 @@
                     </div>
                     
                     <!-- Auto play toggle -->
-                    <div class="auto-play-toggle">
+                    <div class="auto-play-toggle reveal">
                         <span>Auto-play</span>
                         <div class="toggle-btn active" id="autoPlayToggle"></div>
                         <span>(3 segundos)</span>
@@ -1477,19 +1478,18 @@
             
             <!-- Seção 3: Música -->
             <section id="music" class="section">
-                <h2 class="section-title">Nossa Trilha Sonora</h2>
-                <p class="section-subtitle">
+                <h2 class="section-title reveal">Nossa Trilha Sonora</h2>
+                <p class="section-subtitle reveal">
                     Música que marca nossa história
                 </p>
                 
                 <!-- Player de música -->
-                <div class="music-container">
+                <div class="music-container reveal">
                     <div class="spotify-player">
                         <div class="player-info">
                             <h3>Paper Rings - Taylor Swift</h3>
                             <p>Uma música que nos representa</p>
                         </div>
-                        <!-- SPOTIFY COM TIMESTAMP DE 30 SEGUNDOS -->
                         <iframe style="border-radius:12px; width:100%; height:380px;" 
                             src="https://open.spotify.com/embed/track/4y5bvROuBDPr5fuwXbIBZR?utm_source=generator&theme=0#t=0m30s" 
                             frameBorder="0" 
@@ -1501,12 +1501,10 @@
                 </div>
             </section>
             
-            <!-- Seção 4: Mensagem -->
+            <!-- Seção 4: Mensagem com efeito de digitação -->
             <section id="message" class="section">
-                <h2 class="section-title">Para Você</h2>
-                <p class="section-subtitle">
-                    Palavras do coração
-                </p>
+                <h2 class="section-title reveal">Quero Dizer O Que Sinto Por Você</h2>
+                
                 
                 <!-- Quadro de mensagem -->
                 <div class="message-container">
@@ -1558,36 +1556,23 @@
         const slides = document.querySelectorAll('.intro-slide');
         const dots = document.querySelectorAll('.counter-dot');
         
-        // Variáveis de controle
         let currentSlide = 0;
-        const slideDuration = 4000; // 2 segundos por slide
+        const slideDuration = 4000;
         let slideInterval;
         
-        // 1. INICIAR - Botão "Começar"
         startBtn.addEventListener('click', () => {
-            // Esconde tela inicial
             startScreen.style.display = 'none';
-            
-            // Mostra slides
             slidesContainer.style.display = 'block';
-            
-            // Inicia slides automáticos
             startSlideshow();
         });
         
-        // 2. SLIDESHOW AUTOMÁTICO
         function startSlideshow() {
-            // Mostra primeiro slide
             showSlide(0);
-            
-            // Inicia intervalo para trocar slides
             slideInterval = setInterval(() => {
                 currentSlide++;
-                
                 if (currentSlide < slides.length) {
                     showSlide(currentSlide);
                 } else {
-                    // Terminou os slides
                     clearInterval(slideInterval);
                     showFinalScreen();
                 }
@@ -1595,71 +1580,43 @@
         }
         
         function showSlide(index) {
-            // Esconde todos os slides
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-            });
-            
-            // Remove active de todos os dots
-            dots.forEach(dot => {
-                dot.classList.remove('active');
-            });
-            
-            // Mostra slide atual
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
             slides[index].classList.add('active');
             dots[index].classList.add('active');
         }
         
-        // 3. MOSTRAR TELA FINAL
         function showFinalScreen() {
-            // Esconde slides
             slidesContainer.style.display = 'none';
-            
-            // Mostra tela final
             finalScreen.style.display = 'block';
-            
-            // Anima barra de progresso
             setTimeout(() => {
                 loadingProgress.style.width = '100%';
             }, 100);
         }
         
-        // 4. ABRIR PRESENTE - Botão final
         openGiftBtn.addEventListener('click', () => {
-            // Animação de transição
             openGiftBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Abrindo...';
             openGiftBtn.disabled = true;
-            
-            // Efeito de fade out
             introOverlay.style.transition = 'opacity 1s ease';
             introOverlay.style.opacity = '0';
             
-            // Mostra site principal
             setTimeout(() => {
                 introOverlay.style.display = 'none';
                 mainSite.style.display = 'block';
-                
-                // Inicializa o site principal
                 initializeMainSite();
-                
-                // Rola para o topo
                 window.scrollTo(0, 0);
             }, 1000);
         });
         
-        // 5. PULAR INTRODUÇÃO (tecla ESC ou clique duplo)
+        // Pular introdução
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                skipIntro();
-            }
+            if (e.key === 'Escape') skipIntro();
         });
         
         let clickCount = 0;
         document.addEventListener('click', () => {
             clickCount++;
-            if (clickCount >= 3) {
-                skipIntro();
-            }
+            if (clickCount >= 3) skipIntro();
             setTimeout(() => { clickCount = 0; }, 1000);
         });
         
@@ -1678,10 +1635,10 @@
             // Inicializar partículas
             particlesJS('particles-js', {
                 particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
                     color: { value: "#9d4edd" },
                     shape: { type: "circle" },
-                    opacity: { value: 0.3, random: true },
+                    opacity: { value: 0.2, random: true },
                     size: { value: 3, random: true },
                     line_linked: {
                         enable: true,
@@ -1692,7 +1649,7 @@
                     },
                     move: {
                         enable: true,
-                        speed: 2,
+                        speed: 1.5,
                         direction: "none",
                         random: true,
                         straight: false,
@@ -1721,12 +1678,14 @@
             // Inicializar chuva de corações
             initHeartsRain();
             
-            // Atualizar números na mensagem
-            updateMessageNumbers();
-            setInterval(updateMessageNumbers, 60000);
-            
             // Configurar botão tela cheia
             initFullscreen();
+            
+            // Iniciar efeito de revelação ao scroll
+            initScrollReveal();
+            
+            // Iniciar efeito de digitação
+            initTypingEffect();
         }
         
         // Data de início
@@ -1760,22 +1719,18 @@
             const now = new Date();
             const diff = now - START_DATE;
             
-            // Cálculos detalhados
             const totalSeconds = Math.floor(diff / 1000);
             const totalMinutes = Math.floor(totalSeconds / 60);
             const totalHours = Math.floor(totalMinutes / 60);
             const totalDays = Math.floor(totalHours / 24);
             
-            // Cálculo preciso de anos, meses e dias
             const start = new Date(START_DATE);
             let years = now.getFullYear() - start.getFullYear();
             let months = now.getMonth() - start.getMonth();
             let days = now.getDate() - start.getDate();
             
-            // Ajustes para valores negativos
             if (days < 0) {
                 months--;
-                // Dias no mês anterior
                 const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
                 days += lastMonth.getDate();
             }
@@ -1785,12 +1740,10 @@
                 months += 12;
             }
             
-            // Horas, minutos e segundos atuais
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             
-            // Atualizar elementos principais
             elements.years.textContent = years;
             elements.months.textContent = months;
             elements.days.textContent = days;
@@ -1798,18 +1751,15 @@
             elements.minutes.textContent = minutes;
             elements.seconds.textContent = seconds;
             
-            // Atualizar estatísticas
             elements.totalDays.textContent = totalDays.toLocaleString();
             elements.totalHours.textContent = totalHours.toLocaleString();
             elements.totalMinutes.textContent = totalMinutes.toLocaleString();
             elements.totalSeconds.textContent = totalSeconds.toLocaleString();
             
-            // Atualizar mensagem
             elements.messageDays.textContent = totalDays.toLocaleString();
             elements.messageHours.textContent = totalHours.toLocaleString();
             elements.messageMinutes.textContent = totalMinutes.toLocaleString();
             
-            // Progresso do ano
             updateYearProgress(now);
         }
         
@@ -1827,7 +1777,7 @@
         // CHUVA DE CORAÇÕES
         function initHeartsRain() {
             const heartsRain = document.getElementById('heartsRain');
-            const heartCount = 25;
+            const heartCount = 20;
             
             for (let i = 0; i < heartCount; i++) {
                 createHeart(heartsRain);
@@ -1846,20 +1796,18 @@
             heart.className = 'heart-rain';
             heart.innerHTML = '❤️';
             
-            const sizes = ['18px', '22px', '25px', '28px', '32px'];
+            const sizes = ['18px', '22px', '25px', '28px'];
             heart.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
             heart.style.left = Math.random() * 100 + 'vw';
             
-            const duration = 15 + Math.random() * 10;
+            const duration = 20 + Math.random() * 10;
             heart.style.animationDuration = duration + 's';
-            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.animationDelay = Math.random() * 3 + 's';
             
             container.appendChild(heart);
             
             setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.remove();
-                }
+                if (heart.parentNode) heart.remove();
             }, duration * 1000);
         }
         
@@ -1872,7 +1820,6 @@
         const autoPlayDelay = 3000;
         
         function initGallery() {
-            // Criar indicadores
             const indicatorsContainer = document.getElementById('slideIndicators');
             for (let i = 0; i < totalGallerySlides; i++) {
                 const indicator = document.createElement('div');
@@ -1882,17 +1829,12 @@
                 indicatorsContainer.appendChild(indicator);
             }
             
-            // Configurar botões
             document.getElementById('prevBtn').addEventListener('click', prevGallerySlide);
             document.getElementById('nextBtn').addEventListener('click', nextGallerySlide);
-            
-            // Configurar auto-play toggle
             document.getElementById('autoPlayToggle').addEventListener('click', toggleAutoPlay);
             
-            // Iniciar auto-play
             startGalleryAutoPlay();
             
-            // Pausar auto-play ao passar mouse
             const slider = document.getElementById('gallerySlider');
             slider.addEventListener('mouseenter', pauseGalleryAutoPlay);
             slider.addEventListener('mouseleave', () => {
@@ -1956,21 +1898,14 @@
             let isFullscreen = false;
             
             fullscreenBtn.addEventListener('click', toggleFullscreen);
-            
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && isFullscreen) {
-                    exitFullscreen();
-                }
+                if (e.key === 'Escape' && isFullscreen) exitFullscreen();
             });
-            
             fullscreenOverlay.addEventListener('click', exitFullscreen);
             
             function toggleFullscreen() {
-                if (!isFullscreen) {
-                    enterFullscreen();
-                } else {
-                    exitFullscreen();
-                }
+                if (!isFullscreen) enterFullscreen();
+                else exitFullscreen();
             }
             
             function enterFullscreen() {
@@ -1994,20 +1929,52 @@
             }
         }
         
-        function updateMessageNumbers() {
-            const now = new Date();
-            const diff = now - START_DATE;
+        // REVELAÇÃO AO SCROLL
+        function initScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
             
-            const totalSeconds = Math.floor(diff / 1000);
-            const totalMinutes = Math.floor(totalSeconds / 60);
-            const totalHours = Math.floor(totalMinutes / 60);
-            const totalDays = Math.floor(totalHours / 24);
+            const revealOnScroll = () => {
+                reveals.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
             
-            elements.messageDays.textContent = totalDays.toLocaleString();
-            elements.messageHours.textContent = totalHours.toLocaleString();
-            elements.messageMinutes.textContent = totalMinutes.toLocaleString();
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Checar elementos visíveis no carregamento
         }
         
+        // EFEITO DE DIGITAÇÃO
+        function initTypingEffect() {
+            const typedMessage = document.getElementById('typedMessage');
+            const originalText = typedMessage.innerHTML;
+            
+            // Reset para mostrar efeito
+            typedMessage.innerHTML = '';
+            typedMessage.style.borderRight = '3px solid #c084fc';
+            
+            let charIndex = 0;
+            const typingSpeed = 30; // ms por caractere
+            
+            function typeWriter() {
+                if (charIndex < originalText.length) {
+                    typedMessage.innerHTML += originalText.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, typingSpeed);
+                } else {
+                    typedMessage.style.borderRight = 'none';
+                }
+            }
+            
+            // Iniciar digitação após um pequeno delay
+            setTimeout(typeWriter, 1000);
+        }
+        
+        // NAVEGAÇÃO
         function initNavigation() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -2051,7 +2018,7 @@
             });
         }
         
-        // Inicialização quando a página carrega
+        // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
             console.log('Site carregado. Aguardando interação...');
         });
